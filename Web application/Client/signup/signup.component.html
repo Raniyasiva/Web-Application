@@ -1,0 +1,128 @@
+<div class="box-container">
+  <div class="login-box">
+    <mat-card>
+      <mat-toolbar color="primary" class="bottom">
+        <span class="head">SIGNUP</span>
+      
+      </mat-toolbar>
+      <form [formGroup]="signupPage" (ngSubmit)="onSubmit()">
+
+        <div class="row">
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>Name</mat-label>
+              <input matInput type="text" placeholder="Ex.Raniya" formControlName="name">
+              <mat-icon matSuffix>person</mat-icon>
+            </mat-form-field>
+
+            <div *ngIf="signupPage.get('name')?.invalid && signupPage.get('name')?.touched" class="danger">
+              <div *ngIf="signupPage.get('name')?.errors?.['required']">Username Required!!</div>
+              <div *ngIf="signupPage.get('name')?.errors?.['pattern']">Invalid Username!!</div>
+              <div *ngIf="signupPage.get('name')?.errors?.['minlength']">Username must be at least 3 characters!!</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <mat-form-field appearance="outline">
+              <mat-label>E-mail</mat-label>
+              <input matInput type="email" placeholder="Ex.raniya@gmail.com" formControlName="email">
+              <mat-icon matSuffix>email</mat-icon>
+            </mat-form-field>
+
+            <div *ngIf="signupPage.get('email')?.invalid && signupPage.get('email')?.touched" class="danger">
+              <div *ngIf="signupPage.get('email')?.errors?.['required']">Email Required!!</div>
+              <div *ngIf="signupPage.get('email')?.errors?.['email']">Invalid Email!!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Enter your password</mat-label>
+              <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+              <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+              </button>
+            </mat-form-field>
+
+            <div *ngIf="signupPage.get('password')?.invalid && signupPage.get('password')?.touched" class="danger">
+              <span *ngIf="signupPage.get('password')?.errors?.['required']">Required Password!!</span>
+              <span *ngIf="signupPage.get('password')?.errors?.['minlength']">Min character up to 5!!</span>
+            </div>
+          </div>
+          <div class="form-group telephone">
+            <mat-form-field appearance="fill">
+              <mat-label>Telephone</mat-label>
+              <input type="tel" matInput placeholder="555-555-1234" formControlName="phone">
+              <mat-icon matSuffix>phone</mat-icon>
+            </mat-form-field>
+
+            <div *ngIf="signupPage.get('phone')?.invalid && signupPage.get('phone')?.touched" class="danger">
+              <div *ngIf="signupPage.get('phone')?.errors?.['required']">Password phone number!!</div>
+              <div *ngIf="signupPage.get('phone')?.errors?.['maxlength']">Invalid phone number!!</div>
+            </div>
+          </div>
+        </div>
+      
+          <div class="form-group gender">
+            <mat-radio-group aria-label="Select an option" formControlName="gender">
+              <mat-label><b>Gender</b></mat-label>
+              <mat-radio-button value="male">Male</mat-radio-button>
+              <mat-radio-button value="female">Female</mat-radio-button>
+              <mat-radio-button value="others">Others</mat-radio-button>
+            </mat-radio-group>
+
+            <div *ngIf="signupPage.get('gender')?.invalid && signupPage.get('gender')?.touched" class="danger">
+              <div *ngIf="signupPage.get('gender')?.errors?.['required']">Gender Required!!</div>
+            </div>
+          </div>
+          <div class="row">
+          <div class="form-group dob">
+            <mat-form-field appearance="outline">
+              <mat-label>Date of Birth</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dob">
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <div *ngIf="signupPage.get('dob')?.invalid && signupPage.get('dob')?.touched" class="danger">
+              <div *ngIf="signupPage.get('dob')?.errors?.['required']">Date Of Birth Required!!</div>
+            </div>
+          </div>
+          <div class="form-group district">
+            <mat-form-field appearance="outline">
+              <mat-label>Place</mat-label>
+              <mat-select formControlName="district">
+                <mat-option *ngFor="let item of district" [value]="item">{{item}}</mat-option>
+              </mat-select>
+              <mat-icon matSuffix>place</mat-icon>
+            </mat-form-field>
+
+            <div *ngIf="signupPage.get('district')?.invalid && signupPage.get('district')?.touched" class="danger">
+              <div *ngIf="signupPage.get('district')?.errors?.['required']">District Required!!</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="comment">
+          <mat-form-field class="example-full-width">
+            <mat-label>Leave a comment</mat-label>
+            <textarea matInput placeholder="Ex. texting..." formControlName="comment"></textarea>
+            <mat-icon ></mat-icon>
+          </mat-form-field>
+          <div *ngIf="signupPage.get('comment')?.invalid && signupPage.get('comment')?.touched" class="danger">
+            <div *ngIf="signupPage.get('comment')?.errors?.['required']">Comment Required!!</div>
+          </div>
+        </div>
+        <div class="remember">
+          <mat-checkbox class="example-margin" [(indeterminate)]="indeterminate" [labelPosition]="labelPosition" [disabled]="disabled">
+          I agree to user terms and conditions
+          </mat-checkbox>
+        </div>
+        <div class="rowbutton">
+          <button mat-raised-button type="submit" color="primary">Signup</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>
